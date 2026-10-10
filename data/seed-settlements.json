@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Kibera Sample Zone",
+    "localName": "Kibera",
+    "city": "Nairobi",
+    "country": "Kenya",
+    "population": 12000,
+    "atlasReference": true,
+    "source": "Atlas of Informality (reference, illustrative sample)",
+    "sourceUrl": "https://www.atlasofinformality.com/",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [[[36.7809, -1.3167], [36.792, -1.3167], [36.792, -1.3042], [36.7809, -1.3042], [36.7809, -1.3167]]]
+    },
+    "answers": {
+      "waterSatisfaction": 0.35,
+      "sanitationSatisfaction": 0.28,
+      "energySatisfaction": 0.52,
+      "connectivitySatisfaction": 0.48,
+      "mobilitySatisfaction": 0.39,
+      "housingConditionSatisfaction": 0.33,
+      "materialsSatisfaction": 0.41,
+      "structureDevelopmentScore": 0.4,
+      "peoplePerRoom": 4.6,
+      "avgFloors": 1.6,
+      "compactnessSatisfaction": 0.29,
+      "unemploymentRate": 31,
+      "informalEmploymentRate": 68,
+      "insecureTenurePct": 62,
+      "economicSatisfaction": 0.3,
+      "foodInsecurityPct": 47,
+      "withoutAffordableHealthPct": 39,
+      "depressedPct": 24,
+      "insufficientLeisurePct": 58,
+      "lifeExpectancy": 58,
+      "genderEquality": 0.47,
+      "economicEquality": 0.32,
+      "adultLiteracyRate": 67,
+      "meanYearsSchooling": 7
+    }
+  },
+  {
+    "name": "Dharavi Sample Sector",
+    "localName": "Dharavi",
+    "city": "Mumbai",
+    "country": "India",
+    "population": 15500,
+    "atlasReference": false,
+    "source": "demo-seed-illustrative (community sample)",
+    "sourceUrl": "https://data.unhabitat.org/pages/housing-slums-and-informal-settlements",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [[[72.8477, 19.0436], [72.861, 19.0436], [72.861, 19.0562], [72.8477, 19.0562], [72.8477, 19.0436]]]
+    },
+    "answers": {
+      "waterSatisfaction": 0.41,
+      "sanitationSatisfaction": 0.31,
+      "energySatisfaction": 0.62,
+      "connectivitySatisfaction": 0.55,
+      "mobilitySatisfaction": 0.58,
+      "housingConditionSatisfaction": 0.44,
+      "materialsSatisfaction": 0.52,
+      "structureDevelopmentScore": 0.56,
+      "peoplePerRoom": 3.9,
+      "avgFloors": 2.2,
+      "compactnessSatisfaction": 0.36,
+      "unemploymentRate": 18,
+      "informalEmploymentRate": 61,
+      "insecureTenurePct": 49,
+      "economicSatisfaction": 0.42
+    }
+  }
+]

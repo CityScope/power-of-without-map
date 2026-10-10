@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Settlement {
+  id                 String               @id @default(cuid())
+  name               String
+  localName          String?
+  city               String?
+  country            String?
+  geometry           String
+  centroid           String
+  areaM2             Float
+  population         Int?
+  source             String?
+  sourceUrl          String?
+  /** Reference records from the Atlas of Informality (map: yellow). Community/user remains false. */
+  atlasReference     Boolean              @default(false)
+  createdBy          String?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  verificationStatus String               @default("draft")
+  reviewerNotes      String?
+  surveyResponses    SurveyResponse[]
+  calculatedScores   CalculatedScore[]
+  enrichments        OpenDataEnrichment[]
+  auditLogs          AuditLog[]
+}
+
+model SurveyResponse {
+  id             String   @id @default(cuid())
+  settlementId   String
+  rawAnswersJson String
+  calculationVersion String? @default("v3-phase3")
+  submittedBy    String?
+  submittedAt    DateTime @default(now())
+  confidence     Float?
+  notes          String?
+  settlement     Settlement @relation(fields: [settlementId], references: [id], onDelete: Cascade)
+}
+
+model CalculatedScore {
+  id                   String   @id @default(cuid())
+  settlementId         String
+  architectureScore    Float?
+  infrastructureScore  Float?
+  physicalNatureScore  Float?
+  compactnessScore     Float?
+  populaceScore        Float?
+  economyScore         Float?
+  qualityOfLifeScore   Float?
+  demographyScore      Float?
+  siteProfileJson      String?
+  sitePillarScore      Float?
+  finalInformalityScore Float?
+  globalPercentileRank Float?
+  completenessScore    Float?
+  confidenceScore      Float?
+  sourceReliabilityScore Float?
+  uncertaintyScore     Float?
+  missingVariablesJson String?
+  rawValuesJson        String?
+  normalizedValuesJson String?
+  weightsJson          String?
+  formulaVersion       String?  @default("formula-v1")
+  normalizationVersion String?  @default("norm-v1")
+  calculationVersion   String   @default("v1")
+  calculatedAt         DateTime @default(now())
+  settlement           Settlement @relation(fields: [settlementId], references: [id], onDelete: Cascade)
+}
+
+model OpenDataEnrichment {
+  id               String   @id @default(cuid())
+  settlementId     String
+  geometryHash     String?
+  osmJson          String?
+  unhabitatJson    String?
+  beamJson         String?
+  atlasJson        String?
+  queryEnvelopeJson String?
+  cacheHit         Boolean? @default(false)
+  enrichmentStatus String   @default("pending")
+  lastCheckedAt    DateTime?
+  suggestedValuesJson String?
+  calculationVersion String? @default("v3-phase3")
+  acceptedValuesJson String?
+  rejectedValuesJson String?
+  settlement       Settlement @relation(fields: [settlementId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id           String   @id @default(cuid())
+  settlementId String
+  action       String
+  oldValueJson String?
+  newValueJson String?
+  userId       String?
+  createdAt    DateTime @default(now())
+  settlement   Settlement @relation(fields: [settlementId], references: [id], onDelete: Cascade)
+}
+
+/// Country- or city-level contextual indicators (not settlement polygon geometry).
+model ContextualIndicator {
+  id              String   @id @default(cuid())
+  source          String
+  countryCode     String
+  countryName     String
+  city            String?
+  region          String
+  subRegion       String
+  indicatorName   String
+  indicatorValue  String
+  unit            String
+  year            Int
+  sourceUrl       String
+  footnote        String?
+  rawJson         String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([source, countryCode, indicatorName, year])
+  @@index([source, countryName, indicatorName])
+  @@index([source, indicatorName, year])
+}

@@ -30,8 +30,18 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files — commit .env.example only
+.env
+.env.*
+!.env.example
+
+# local SQLite database (imported and contributed records)
+/prisma/*.db
+/prisma/*.db-journal
+
+# Country outlines. Byte-identical to johan/world.geo.json, which does not
+# establish redistribution rights. The local file stays on disk and is not published.
+/public/geo/countries.geo.json
 
 # vercel
 .vercel
